@@ -75,19 +75,19 @@ contract NftMarketplace is ReentrancyGuard {
         _;
     }
 
-    modifier isAcceptedToken(address paymentToken) {
-        address[] memory acceptedTokens = s_acceptedTokens;
-        bool paymentTokenFound = false;
-        for (uint256 i; i < s_acceptedTokens.length; i++) {
-            if (paymentToken == acceptedTokens[i]) {
-                paymentTokenFound = true;
-            }
-        }
-        if (paymentTokenFound == false) {
-            revert NftMarketplace__InvalidPaymentToken();
-        }
-        _;
-    }
+    // modifier isAcceptedToken(address paymentToken) {
+    //     address[] memory acceptedTokens = s_acceptedTokens;
+    //     bool paymentTokenFound = false;
+    //     for (uint256 i; i < s_acceptedTokens.length; i++) {
+    //         if (paymentToken == acceptedTokens[i]) {
+    //             paymentTokenFound = true;
+    //         }
+    //     }
+    //     if (paymentTokenFound == false) {
+    //         revert NftMarketplace__InvalidPaymentToken();
+    //     }
+    //     _;
+    // }
 
     modifier isListed(address nftAddress, uint256 tokenId) {
         Listing memory listing = s_listings[nftAddress][tokenId];
