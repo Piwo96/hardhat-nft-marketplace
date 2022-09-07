@@ -253,7 +253,7 @@ const PRICE = ethers.utils.parseEther("0.01");
               this.beforeEach(async function () {
                   const accounts = await ethers.getSigners();
                   const buyer = accounts[1];
-                  const balanceBefore = await deployer.getBalance();
+                  balanceBefore = await deployer.getBalance();
                   const txResponse = await nftMarketplace.listItem(
                       nft.address,
                       TOKEN_ID,
@@ -261,7 +261,7 @@ const PRICE = ethers.utils.parseEther("0.01");
                   );
                   const txReceipt = await txResponse.wait(1);
                   const { effectiveGasPrice, gasUsed } = txReceipt;
-                  const listingTransactionCost = effectiveGasPrice.mul(gasUsed);
+                  listingTransactionCost = effectiveGasPrice.mul(gasUsed);
                   const connectedContract = nftMarketplace.connect(buyer);
                   await connectedContract.buyItem(nft.address, TOKEN_ID, {
                       value: PRICE,
