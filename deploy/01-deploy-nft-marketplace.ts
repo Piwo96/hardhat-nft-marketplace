@@ -29,3 +29,4 @@ const deployNftMarketplace: DeployFunction = async (
 };
 
 export default deployNftMarketplace;
+deployNftMarketplace.tags = ["all"];
