@@ -3,7 +3,7 @@ import { NftMarketplace, BasicNftOne } from "../typechain-types";
 import { developmentChains } from "../helper-hardhat-config";
 import moveBlocks from "../utils/move-blocks";
 
-const TOKEN_ID = 1;
+const TOKEN_ID = 3;
 
 async function buy() {
     const accounts = await ethers.getSigners();
