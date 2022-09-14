@@ -12,15 +12,8 @@ const deployMocks: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     const blockConfirmations = networkConfig[chainId].blockConfirmations!;
 
     log("Deploying Basic Nfts ...");
-    const nftOne = await deploy("BasicNftOne", {
+    const nft = await deploy("BasicNftOne", {
         contract: "BasicNftOne",
-        from: deployer,
-        log: true,
-        waitConfirmations: blockConfirmations,
-    });
-
-    const nftTwo = await deploy("BasicNftTwo", {
-        contract: "BasicNftTwo",
         from: deployer,
         log: true,
         waitConfirmations: blockConfirmations,
@@ -28,8 +21,7 @@ const deployMocks: DeployFunction = async (hre: HardhatRuntimeEnvironment) => {
     log("Nfts deployed!");
 
     if (!developmentChains.includes(network.name)) {
-        await verify(nftOne.address, []);
-        await verify(nftTwo.address, []);
+        await verify(nft.address, []);
     }
     log("------------------------------------");
 };
