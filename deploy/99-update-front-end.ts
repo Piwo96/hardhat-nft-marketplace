@@ -4,7 +4,7 @@ import fs from "fs";
 
 const FRONT_END_ADDRESSES_FILE =
     "../nextjs-nft-marketplace/constants/contractAddresses.json";
-const FRONT_END_ABI_FILE = "../nextjs-nft-marketplace/constants/abi.json";
+const FRONT_END_ABI_LOCATION = "../nextjs-nft-marketplace/constants/";
 
 const updateUi: DeployFunction = async () => {
     if (process.env.UPDATE_FRONT_END == "true") {
@@ -42,16 +42,23 @@ async function updateContractAddresses() {
 }
 
 async function updateAbi() {
-    const abi: string = await getAbiFromBuild();
-    fs.writeFileSync(FRONT_END_ABI_FILE, abi);
-}
-
-async function getAbiFromBuild(): Promise<string> {
-    console.log("Reading ABI ...");
     const nftMarketplacePath =
         "artifacts/contracts/NftMarketplace.sol/NftMarketplace.json";
+    const basicNftPath =
+        "artifacts/contracts/mocks/BasicNftOne.sol/BasicNftOne.json";
+    const nftMarketplacAbi: string = await getAbiFromBuild(nftMarketplacePath);
+    const basicNftAbi: string = await getAbiFromBuild(basicNftPath);
+    fs.writeFileSync(
+        `${FRONT_END_ABI_LOCATION}NftMarketplace.json`,
+        nftMarketplacAbi
+    );
+    fs.writeFileSync(`${FRONT_END_ABI_LOCATION}BasicNft.json`, basicNftAbi);
+}
+
+async function getAbiFromBuild(contractPath: string): Promise<string> {
+    console.log("Reading ABI ...");
     return new Promise<string>((resolve, reject) => {
-        fs.readFile(nftMarketplacePath, "utf-8", (err, data) => {
+        fs.readFile(contractPath, "utf-8", (err, data) => {
             if (err) {
                 console.log(err);
                 reject(err);
@@ -66,4 +73,4 @@ async function getAbiFromBuild(): Promise<string> {
 }
 
 export default updateUi;
-updateUi.tags = ["all", "frontend"];
+updateUi.tags = ["all"];
