@@ -6,6 +6,7 @@ import "hardhat-gas-reporter";
 import "hardhat-contract-sizer";
 
 const RINKEBY_RPC_URL = process.env.RINKEBY_RPC_URL || "https://abc";
+const GOERLI_RPC_URL = process.env.GOERLI_RPC_URL || "https://abc";
 const PRIVATE_KEY = process.env.PRIVATE_KEY || "0x00";
 const ETHERSCAN_API_KEY = process.env.ETHERSCAN_API_KEY || "";
 const COINMARKETCAP_API_KEY = process.env.COINMARKETCAP_API_KEY || "";
@@ -23,6 +24,12 @@ const config: HardhatUserConfig = {
             url: RINKEBY_RPC_URL,
             accounts: [PRIVATE_KEY],
             chainId: 4,
+        },
+        goerli: {
+            url: GOERLI_RPC_URL,
+            accounts: [PRIVATE_KEY],
+            saveDeployments: true,
+            chainId: 5,
         },
     },
     namedAccounts: {
